@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from user.models import User
 from .models import *
 from .forms import IssueSolutionForm
+from django.conf import settings
 # Create your views here.
+from user.models import User
 
 from django.views.generic import ListView
 
@@ -34,8 +35,7 @@ def issue_detail(request, slug, *args, **kwargs):
                 'issue': issue, 
                 'issues': issues, 
                 'categories': categories}
-                )
-            
+                )    
 
     context = {
         'issue': issue,
@@ -46,7 +46,7 @@ def issue_detail(request, slug, *args, **kwargs):
 
 
 def aboutus(request, *args, **kwargs):
-    experts = User.objects.filter(is_farmer=True)
+    experts = User.objects.filter(is_staff=True)
     context = {
         'experts': experts
     }
