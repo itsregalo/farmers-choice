@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Issues {% endblock title %}
+{% load static %}
+
+
+{% block body %}
+
+
+
+<div class="stricky-header stricked-menu main-menu">
+    <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+</div><!-- /.stricky-header -->
+<section class="page-header">
+    <div class="page-header__bg" style="background-image: url(/assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+    <!-- /.page-header__bg -->
+    <div class="container">
+        <ul class="thm-breadcrumb list-unstyled">
+            <li><a href="index.html">Home</a></li>
+            <li>/</li>
+            <li><span>ISSUES</span></li>
+        </ul><!-- /.thm-breadcrumb list-unstyled -->
+    </div><!-- /.container -->
+</section><!-- /.page-header -->
+
+<section class="blog-grid">
+    <div class="container">
+        <div class="row">
+            
+            
+            {% for issue in issues %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="blog-card">
+                        <div class="blog-card__image">
+                            <img src="{% static 'assets/images/blog/blog-grid-1.jpg' %}" alt="Best Way to Do Eco and Agriculture">
+                            <a href="blog-details.html"></a>
+                        </div><!-- /.blog-card__image -->
+                        <div class="blog-card__content">
+                            <div class="blog-card__date">18 Nov</div><!-- /.blog-card__date -->
+                            <div class="blog-card__meta">
+                                <a href="blog-details.html"><i class="far fa-user-circle"></i> by {{ issue.farmer.user.username }}</a>
+                                <a href="blog-details.html"><i class="far fa-comments"></i> 2 Comments</a>
+                            </div><!-- /.blog-card__meta -->
+                            <h3><a href="{% url 'core:issue-detail' issue.slug %}">{{ issue.title }}</a></h3>
+                            <a href="blog-details.html" class="thm-btn">Read More</a><!-- /.thm-btn -->
+                        </div><!-- /.blog-card__content -->
+                    </div><!-- /.blog-card -->
+                </div><!-- /.col-md-6 col-lg-4 -->
+            {% endfor %}
+                
+            
+        </div><!-- /.row -->
+        <div class="text-center more-btn__box">
+            <a href="#" class="thm-btn">Load More</a><!-- /.thm-btn -->
+        </div><!-- /.text-center -->
+    </div><!-- /.container -->
+</section><!-- /.blog-grid -->
+
+
+{% endblock body %}

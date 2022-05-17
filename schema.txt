@@ -1,0 +1,55 @@
+FARMERS CHOICE
+
+
+USERS
+	- username
+	- email
+	- password
+	- location
+	- is_farmer
+	- is_staff
+	- is_admin
+	
+
+FARMERS
+	- User
+	- is_largescale
+	- phone_no
+
+ISSUE_CATEGORY
+	- category_name
+	- timestamp	
+	
+ISSUE
+	- issue_category
+	- issue_title
+	- issue_description
+	- timestamp
+	- votes
+
+ISSUE_VOTES
+	- user
+	- issue
+	- timestamp
+
+ISSUE_SOLUTION
+	- issue
+	- issue_solution
+	- timestamp
+	- votes
+
+ISSUE_SOLUTION_VOTES
+	- user
+	- issue
+	- timestamp
+
+-- modules
+USER
+ISSUES (core)
+
+	
+	
+
+	
+
+	
