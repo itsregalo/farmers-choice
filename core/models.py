@@ -114,6 +114,9 @@ class IssueVote(models.Model):
     def __str__(self):
         return self.voter.user.username
 
+    def count_votes(self):
+        return IssueVote.objects.filter(issue=self).count()
+
 # issue solution class
 class IssueSolution(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
@@ -125,6 +128,13 @@ class IssueSolution(models.Model):
     # __str__ method to return username for the user
     def __str__(self):
         return self.farmer.username
+
+
+    def count_solutions(self):
+        return IssueSolution.objects.filter(issue=self).count()ls
+
+
+        
 
 # issue solution vote class
 class IssueSolutionVote(models.Model):

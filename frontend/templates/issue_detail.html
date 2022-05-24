@@ -47,17 +47,14 @@
 
                 
                 {% if issue_solutions %}
+                {% for solution in issue_solutions %}
                     <div class="blog-author">
-                    
-                        {% for solution in issue_solutions %}
-
                             <div class="blog-author__content">
                                 <h3>{{solution.farmer.username}}</h3>
                                 <p>{{ solution.description }}</p>
                             </div><!-- /.blog-author__content -->
-                        
-                        {% endfor %}
                     </div><!-- /.blog-author -->
+                    {% endfor %}
                 {% endif %}
                     
 
