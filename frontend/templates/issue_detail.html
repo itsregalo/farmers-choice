@@ -34,7 +34,7 @@
                 <div class="blog-card__content">
                     <div class="blog-card__date">18 Nov</div><!-- /.blog-card__date -->
                     <div class="blog-card__meta">
-                        <a href="blog-details.html"><i class="far fa-user-circle"></i> by {{ issue.farmer.user.username }}</a>
+                        <a href="blog-details.html"><i class="far fa-user-circle"></i> by {{ issue.farmer.username }}</a>
                         <a href="blog-details.html"><i class="far fa-comments"></i> 2 Comments</a>
                     </div><!-- /.blog-card__meta -->
                     <h3><a href="blog-details.html">{{ issue.title }}</a></h3>
@@ -43,55 +43,31 @@
                     <p>{{ issue.description }}</p>
                 </div><!-- /.blog-details__content -->
 
-                <div class="blog-details__meta">
-                    <div class="blog-details__tags">
-                        <span>Tags:</span>
-                        <a href="#">Agriculture,</a>
-                        <a href="#">Food,</a>
-                        <a href="#">Economy</a>
-                    </div><!-- /.blog-details__tags -->
-                    <div class="blog-details__social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div><!-- /.blog-details__social -->
-                </div><!-- /.blog-details__meta -->
+                
 
                 <div class="blog-author">
                    
-                    <div class="blog-author__content">
-                        <h3>{{issue.farmer.user.username}}</h3>
-                        <p>It has survived not only five centuries, but also the leap into electronic typesetting,
-                            remaining unchanged. It was popularised in the sheets containing.</p>
-                    </div><!-- /.blog-author__content -->
+                    {% for solution in issue_solutions %}
+
+                        <div class="blog-author__content">
+                            <h3>{solution.farmer.username}}</h3>
+                            <p>{{ solution.description }}</p>
+                        </div><!-- /.blog-author__content -->
+                    
+                    {% endfor %}
                 </div><!-- /.blog-author -->
 
-                <div class="blog-comment">
-                    <h2>2 Solutions</h2>
-                    <div class="blog-comment__box">
-                        <div class="blog-comment__image">
-                            <img src="{% static 'assets/images/blog/comment-1-1.jpg' %}" alt="">
-                        </div><!-- /.blog-comment__image -->
-                        <div class="blog-comment__content">
-                            <h3>Jessica Brown</h3>
-                            <p>It has survived not only five centuries, but also the leap into electronic typesetting
-                                unchanged. It was popularised in the sheets If you are going to use a passage of Lorem
-                                Ipsum, you need to be is simply free text.</p>
-                            <a href="#" class="thm-btn">Reply</a><!-- /.thm-btn -->
-                        </div><!-- /.blog-comment__content -->
-                    </div><!-- /.blog-comment__box -->
-                    
-                </div><!-- /.blog-comment -->
+                
                 <div class="comment-form">
-                    <h2>Leave a Comments</h2>
-
-                    <form action="" class="contact-one__form contact-form-validated">
+                    <h2>New Solution</h2>
+        
+                    <form method="POST" action="{% url 'core:issue-detail' issue.slug  %}" >{% csrf_token %}
                         <div class="row">
                             <div class="col-lg-12">
-                                <textarea name="message" placeholder="Write Message"></textarea>
+                                {{ form.description }}
                             </div><!-- /.col-lg-12 -->
-                            <div class="col-lg-12">
-                                <button type="submit" class="thm-btn">Submit Comment</button><!-- /.thm-btn -->
+                            <div class="col-lg-12"><br>
+                                <button type="submit" class="btn btn-success">Submit Comment</button><!-- /.thm-btn -->
                             </div><!-- /.col-lg-12 -->
                         </div><!-- /.row -->
                     </form>
@@ -111,10 +87,9 @@
                            {% for issue in issues %}
                            
                            <li>
-                                <img src="{% static 'assets/images/blog/blog-s-1-1.jpg' %}" alt="">
                                 <span><i class="far fa-comments"></i> 2 Comments
                                 </span>
-                                <h4><a href="blog-details.html">{{ issue.title }}</a></h4>
+                                <h4><a href="{{ issue.get_absolute_url }}">{{ issue.title }}</a></h4>
                             </li>
                            
                            {% endfor %}
@@ -134,17 +109,7 @@
                             
                         </ul>
                     </div><!-- /.blog-sidebar__categories -->
-                    <div class="blog-sidebar__tags">
-                        <h3>Tags</h3>
-                        <div class="blog-sidebar__tags-links">
-                            <a href="#">Agriculture,</a>
-                            <a href="#">Food,</a>
-                            <a href="#">Healthy,</a>
-                            <a href="#">Dairy,</a>
-                            <a href="#">Organic,</a>
-                            <a href="#">Farm,</a>
-                            <a href="#">Economy</a>
-                        </div><!-- /.blog-sidebar__tags-links -->
+                    
                     </div><!-- /.blog-sidebar__tags -->
                 </div><!-- /.blog-sidebar -->
             </div><!-- /.col-lg-4 -->

@@ -60,14 +60,14 @@ class Issue(models.Model):
     category = models.ForeignKey(IssueCategory, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='images/issues/', blank=True)
+    image = models.ImageField(upload_to='images/issues/', blank=True, null=True)
     pic_thumbnail = ImageSpecField(source='image',
                                    processors = [ResizeToFill(494, 326)],
                                    format='JPEG',
                                    options = {'quality':100})
     timestamp = models.DateTimeField(auto_now_add=True)
-    location = models.CharField(max_length=100, blank=True)
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE)
     votes = models.IntegerField(default=0)
     slug = models.SlugField(blank=True, null=True)
 
@@ -109,14 +109,14 @@ class IssueVote(models.Model):
 # issue solution class
 class IssueSolution(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
     votes = models.IntegerField(default=0)
 
     # __str__ method to return username for the user
     def __str__(self):
-        return self.farmer.user.username
+        return self.farmer.username
 
 # issue solution vote class
 class IssueSolutionVote(models.Model):

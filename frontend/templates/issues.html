@@ -30,15 +30,12 @@
             {% for issue in issues %}
                 <div class="col-md-6 col-lg-4">
                     <div class="blog-card">
-                        <div class="blog-card__image">
-                            <img src="{% static 'assets/images/blog/blog-grid-1.jpg' %}" alt="Best Way to Do Eco and Agriculture">
-                            <a href="blog-details.html"></a>
-                        </div><!-- /.blog-card__image -->
+                    
                         <div class="blog-card__content">
                             <div class="blog-card__date">18 Nov</div><!-- /.blog-card__date -->
                             <div class="blog-card__meta">
-                                <a href="blog-details.html"><i class="far fa-user-circle"></i> by {{ issue.farmer.user.username }}</a>
-                                <a href="blog-details.html"><i class="far fa-comments"></i> 2 Comments</a>
+                                <a href=""><i class="far fa-user-circle"></i> by {{ issue.farmer.user.username }}</a>
+                                <a href=""><i class="far fa-comments"></i> 2 Comments</a>
                             </div><!-- /.blog-card__meta -->
                             <h3><a href="{% url 'core:issue-detail' issue.slug %}">{{ issue.title }}</a></h3>
                             <a href="blog-details.html" class="thm-btn">Read More</a><!-- /.thm-btn -->
@@ -52,6 +49,23 @@
         <div class="text-center more-btn__box">
             <a href="#" class="thm-btn">Load More</a><!-- /.thm-btn -->
         </div><!-- /.text-center -->
+        <div class="comment-form">
+            <h2>New Issue</h2>
+
+            <form method="POST" action="{% url 'core:issues'  %}" >{% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="text" name="type" class="form-control" placeholder="Title">
+                        </div><!-- /.form-group -->
+                        <textarea name="message" class="form-control" rows="5" placeholder="Write Message"></textarea>
+                    </div><!-- /.col-lg-12 -->
+                    <div class="col-lg-12"><br>
+                        <button type="submit" class="btn btn-success">Submit Comment</button><!-- /.thm-btn -->
+                    </div><!-- /.col-lg-12 -->
+                </div><!-- /.row -->
+            </form>
+        </div><!-- /.comment-form -->
     </div><!-- /.container -->
 </section><!-- /.blog-grid -->
 

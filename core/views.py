@@ -19,6 +19,14 @@ def IndexView(request, *args, **kwargs):
 
 def issues(request, *args, **kwargs):
     issues = Issue.objects.all()
+
+    if request.method == 'POST':
+        form = IssueSolutionForm(request.POST, request.FILES)
+        if form.is_valid():
+            issue = form.save(commit=False)
+            issue.farmer = request.user
+            issue.save()
+
     context = {
         'issues': issues
     }
@@ -28,6 +36,9 @@ def issue_detail(request, slug, *args, **kwargs):
     categories = IssueCategory.objects.all()
     issue = Issue.objects.get(slug=slug)
     issues = Issue.objects.all()[:3]
+    form = IssueSolutionForm()
+
+    issue_solutions = IssueSolution.objects.filter(issue=issue)
 
     if request.method == 'POST' and request.user.is_authenticated:
         form = IssueSolutionForm(request.POST, request.FILES)
@@ -36,17 +47,23 @@ def issue_detail(request, slug, *args, **kwargs):
             issue_solution.farmer = request.user
             issue_solution.issue = issue
             issue_solution.save()
-            return render(request, 'issue_detail.html', {
-                'issue': issue, 
-                'issues': issues, 
-                'categories': categories}
-                )    
 
+            context = {
+                'issue': issue,
+                'issues': issues,
+                'categories': categories,
+                'issue_solution': issue_solutions,
+                'form': form
+            }
+            return render(request, 'issue_detail.html', context) 
     context = {
         'issue': issue,
         'issues': issues,
-        'categories': categories
+        'categories': categories,
+        'issue_solution': issue_solutions,
+        'form': form
     }
+
     return render(request, 'issue_detail.html', context)
 
 
