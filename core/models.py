@@ -82,7 +82,9 @@ class Issue(models.Model):
     def get_absolute_url(self):
         return reverse("core:issue-detail", kwargs={"slug": self.slug})
 
-    
+    # method to get all the issues
+    def get_all_issues():
+        return Issue.objects.all()
 
     # __str__ method to return username for the user
     def __str__(self):
@@ -95,6 +97,12 @@ class Issue(models.Model):
     # method to delete the issue
     def delete_issue(self):
         self.delete()
+
+    def issue_solution_count(self):
+        issues_count = IssueSolution.objects.filter(issue=self).count()
+        if issues_count > 0:
+            return issues_count
+        return 0
 
 # issue vote class
 class IssueVote(models.Model):

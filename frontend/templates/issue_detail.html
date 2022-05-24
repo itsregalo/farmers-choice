@@ -32,10 +32,10 @@
             <div class="col-lg-8">
                 
                 <div class="blog-card__content">
-                    <div class="blog-card__date">18 Nov</div><!-- /.blog-card__date -->
+                    <div class="blog-card__date">{{ issue.timestamp|date:'d M' }}</div><!-- /.blog-card__date -->
                     <div class="blog-card__meta">
                         <a href="blog-details.html"><i class="far fa-user-circle"></i> by {{ issue.farmer.username }}</a>
-                        <a href="blog-details.html"><i class="far fa-comments"></i> 2 Comments</a>
+                        <a href="blog-details.html"><i class="far fa-comments"></i>{{ issue.issue_solution_count }}  Solutions</a>
                     </div><!-- /.blog-card__meta -->
                     <h3><a href="blog-details.html">{{ issue.title }}</a></h3>
                 </div><!-- /.blog-card__content -->
@@ -45,17 +45,21 @@
 
                 
 
-                <div class="blog-author">
-                   
-                    {% for solution in issue_solutions %}
-
-                        <div class="blog-author__content">
-                            <h3>{solution.farmer.username}}</h3>
-                            <p>{{ solution.description }}</p>
-                        </div><!-- /.blog-author__content -->
+                
+                {% if issue_solutions %}
+                    <div class="blog-author">
                     
-                    {% endfor %}
-                </div><!-- /.blog-author -->
+                        {% for solution in issue_solutions %}
+
+                            <div class="blog-author__content">
+                                <h3>{{solution.farmer.username}}</h3>
+                                <p>{{ solution.description }}</p>
+                            </div><!-- /.blog-author__content -->
+                        
+                        {% endfor %}
+                    </div><!-- /.blog-author -->
+                {% endif %}
+                    
 
                 
                 <div class="comment-form">
@@ -87,7 +91,7 @@
                            {% for issue in issues %}
                            
                            <li>
-                                <span><i class="far fa-comments"></i> 2 Comments
+                                <span><i class="far fa-comments"></i> {{ issue.issue_solution_count }} Solutions
                                 </span>
                                 <h4><a href="{{ issue.get_absolute_url }}">{{ issue.title }}</a></h4>
                             </li>
