@@ -5,3 +5,5 @@ class IssueSolutionForm(forms.ModelForm):
     class Meta:
         model = IssueSolution
         fields = ('description',)
+
+        

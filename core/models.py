@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.utils.text import slugify
 # import settings
 from django.conf import settings
@@ -76,6 +77,12 @@ class Issue(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save()
+
+
+    def get_absolute_url(self):
+        return reverse("core:issue-detail", kwargs={"slug": self.slug})
+
+    
 
     # __str__ method to return username for the user
     def __str__(self):

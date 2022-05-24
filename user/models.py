@@ -19,7 +19,7 @@ class User(AbstractUser):
 
     # new fields
     location = models.CharField(max_length=100, blank=True)
-    profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
+    profile_pic = models.ImageField(upload_to='media/profile_pics', blank=True)
     profile_file_thumbnail = ImageSpecField(source='profile_pic',
                                             processors=[ResizeToFill(494, 563)],
                                             format='JPEG',
@@ -32,4 +32,16 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    # method to count the number of farmers
+    @staticmethod
+    def count_farmers():
+        return User.objects.filter(is_farmer=True).count()
+
+
+class Staff(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
 

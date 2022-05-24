@@ -3,14 +3,19 @@ from .models import *
 from .forms import IssueSolutionForm
 from django.conf import settings
 # Create your views here.
-from user.models import User
+from user.models import User, Staff
 
 from django.views.generic import ListView
 
 
 
 def IndexView(request, *args, **kwargs):
-    return render(request, 'index.html')
+    issues = Issue.objects.all()
+
+    context = {
+        'issues': issues
+    }
+    return render(request, 'index.html', context)
 
 def issues(request, *args, **kwargs):
     issues = Issue.objects.all()
@@ -46,7 +51,7 @@ def issue_detail(request, slug, *args, **kwargs):
 
 
 def aboutus(request, *args, **kwargs):
-    experts = User.objects.filter(is_staff=True)
+    experts = Staff.objects.filter(is_active=True)
     context = {
         'experts': experts
     }
